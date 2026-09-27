@@ -131,33 +131,6 @@
   }
   .gpa-row span { color: var(--muted); font-size: 14px; }
 
-  /* Middle: about + experience */
-  .middle {
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: 48px;
-  }
-  .block { display: grid; gap: 18px; align-content: start; }
-  .about p { margin: 0; color: #cfccc5; max-width: 60ch; }
-  .about { display: grid; gap: 14px; }
-  .jobs { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-  .jobs li {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 17px;
-  }
-  .jobs li::before {
-    content: "";
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--gold);
-    flex: none;
-    transform: translateY(-3px);
-  }
-
   /* Bottom: contact card + resume */
   .bottom {
     display: flex;
@@ -238,12 +211,184 @@
   .resume svg { width: 16px; height: 16px; }
   a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
+  /* Section navigation */
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  .toc {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin: -24px -20px 0;
+    padding: 12px 20px;
+    background: rgba(16, 19, 23, 0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .toc::-webkit-scrollbar { display: none; }
+  .toc a {
+    flex: none;
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .toc a:hover { color: var(--text); border-color: var(--line); }
+  .toc a.active { color: var(--gold); border-color: rgba(201, 165, 94, 0.45); background: var(--gold-soft); }
+
+  .section { display: grid; gap: 18px; }
+  .about { display: grid; gap: 14px; }
+  .about p { margin: 0; color: #cfccc5; max-width: 68ch; }
+  .section-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .about p.lead { color: var(--text); font-size: 18px; }
+  .hint { margin: -6px 0 0; color: var(--muted); font-size: 14px; }
+
+  /* Highlights */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .stat {
+    display: grid;
+    gap: 6px;
+    align-content: start;
+    padding: 22px 18px 22px 0;
+    color: inherit;
+    text-decoration: none;
+  }
+  .stat + .stat { padding-left: 18px; border-left: 1px solid var(--line); }
+  .stat b {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--gold);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat span { color: var(--muted); font-size: 14px; line-height: 1.45; }
+  .stat:hover span { color: var(--text); }
+
+  /* Expandable entries */
+  .toggle-all {
+    font: inherit;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 12px;
+    cursor: pointer;
+  }
+  .toggle-all:hover { color: var(--text); border-color: var(--faint); }
+  .entries { border-top: 1px solid var(--line); }
+  .entry { border-bottom: 1px solid var(--line); }
+  .entry summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+    cursor: pointer;
+  }
+  .entry summary::-webkit-details-marker { display: none; }
+  .entry summary::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex: none;
+  }
+  .entry summary::after {
+    content: "";
+    width: 9px; height: 9px;
+    flex: none;
+    border-right: 1.5px solid var(--muted);
+    border-bottom: 1.5px solid var(--muted);
+    transform: translateY(-3px) rotate(45deg);
+    transition: transform 0.2s;
+  }
+  .entry[open] summary::after { transform: translateY(2px) rotate(-135deg); }
+  .entry summary:hover .entry-title { color: var(--gold); }
+  .entry-main { display: grid; gap: 2px; flex: 1; min-width: 0; }
+  .entry-title { font-family: var(--display); font-weight: 500; font-size: 20px; line-height: 1.25; letter-spacing: -0.01em; }
+  .entry-sub { color: var(--muted); font-size: 14px; }
+  .entry-meta { font-family: var(--mono); font-size: 12px; color: var(--faint); text-align: right; white-space: nowrap; }
+  .entry-body { padding: 0 0 22px 22px; display: grid; gap: 16px; }
+  .entry-body ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; color: #cfccc5; max-width: 72ch; }
+  .entry-body li::marker { color: var(--faint); }
+  .entry-body strong { color: var(--text); font-weight: 500; }
+  .takeaway {
+    margin: 0;
+    padding: 12px 16px;
+    border-left: 2px solid var(--gold);
+    background: var(--gold-soft);
+    border-radius: 0 8px 8px 0;
+    color: var(--text);
+    max-width: 72ch;
+  }
+  .takeaway span { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
+  .entry-photo { margin: 0; max-width: 560px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
+  .entry-photo img { display: block; width: 100%; height: auto; }
+  .prs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 560px; border: 1px solid var(--line); border-radius: 10px; }
+  .prs div { display: grid; gap: 2px; padding: 12px 14px; }
+  .prs div + div { border-left: 1px solid var(--line); }
+  .prs span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+  .prs b { font-family: var(--display); font-weight: 500; font-size: 22px; color: var(--gold); font-variant-numeric: tabular-nums; }
+
+  /* Skills */
+  .skill-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; border-top: 1px solid var(--line); padding-top: 22px; }
+  .skill-group h3 { margin: 0 0 12px; font-family: var(--display); font-weight: 500; font-size: 17px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-size: 14px;
+    color: var(--text);
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+  }
+  .chip:hover { border-color: var(--gold); color: var(--gold); }
+  .entry.flash { animation: flash 1.4s ease-out; }
+  @keyframes flash { from { background: var(--gold-soft); } to { background: transparent; } }
+  summary:focus-visible, .stat:focus-visible, .chip:focus-visible, .toc a:focus-visible, .toggle-all:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  @media (max-width: 860px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat, .stat + .stat { padding: 18px 16px 18px 0; border-left: 0; }
+    .stat:nth-child(even) { padding-left: 16px; border-left: 1px solid var(--line); }
+    .stat { border-bottom: 1px solid var(--line); }
+    .skill-groups { grid-template-columns: 1fr; gap: 22px; }
+  }
+  @media (max-width: 460px) {
+    .toc { margin: -12px -16px 0; padding: 10px 16px; }
+    .entry-title { font-size: 18px; }
+    .entry summary { flex-wrap: wrap; row-gap: 4px; }
+    .entry-meta { order: 3; width: 100%; text-align: left; padding-left: 22px; }
+    .entry summary::after { order: 2; }
+    .entry-body { padding-left: 0; }
+    .prs { grid-template-columns: repeat(2, 1fr); }
+    .prs div:nth-child(3) { border-left: 0; }
+    .prs div:nth-child(n+3) { border-top: 1px solid var(--line); }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .entry.flash { animation: none; } }
+
   @media (max-width: 760px) {
     .page { padding-block: 32px 32px; gap: 44px; }
     .top { grid-template-columns: 1fr; gap: 32px; }
     .identity { grid-template-columns: 120px 1fr; align-items: end; }
     .photo span { font-size: 36px; }
-    .middle { grid-template-columns: 1fr; gap: 44px; }
   }
   @media (max-width: 460px) {
     body { padding-inline: 16px; }
@@ -286,27 +431,232 @@
     </div>
   </section>
 
-  <section class="middle">
-    <div class="block">
-      <div class="label">About me</div>
-      <div class="about">
-        <p>I'm a freshman at UCCS studying Data Analytics and Systems Engineering, and I compete for the Mountain Lions as a Division II track athlete.</p>
-        <p>Before college I worked hands-on jobs in HVAC, window repair, and retail sales. That work taught me how real systems fail, how to troubleshoot them methodically, and how to explain the fix to the customer standing next to me.</p>
-        <p>I'm looking for internships where I can use data to solve practical, operational problems.</p>
-      </div>
-    </div>
+  <nav class="toc" aria-label="Sections">
+    <a href="#about">About</a>
+    <a href="#highlights">Highlights</a>
+    <a href="#experience">Experience</a>
+    <a href="#leadership">Athletics &amp; Leadership</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-    <div class="block">
-      <div class="label">Experience</div>
-      <ul class="jobs">
-        <li>HVAC Intern</li>
-        <li>Sales Associate, Foot Locker</li>
-        <li>Window Repair Technician</li>
-      </ul>
+  <section id="about" class="section">
+    <div class="label">About me</div>
+    <div class="about">
+      <p class="lead">I'm a freshman at UCCS studying Data Analytics and Systems Engineering, and I compete for the Mountain Lions as an NCAA Division II track athlete.</p>
+      <p>I've been working since third grade. Six years of raising and selling livestock through 4-H taught me to run something like a small business: daily care, costs, and selling at the fair. In high school I balanced a full course load, sports year-round and a part-time job, and still finished with a 4.0 unweighted GPA.</p>
+      <p>My jobs in window repair and HVAC taught me how real systems fail, how to troubleshoot them methodically, and how to explain the fix to the customer standing next to me. As track captain I learned to lead: running warm-ups, mentoring younger athletes and leading practices on my own.</p>
+      <p>I'm looking for internships where I can use data to solve practical, operational problems.</p>
     </div>
   </section>
 
-  <footer class="bottom">
+  <section id="highlights" class="section">
+    <div class="label">Highlights</div>
+    <div class="stats">
+      <a class="stat" href="#exp-window"><b>75</b><span>repair jobs a week as a window repair technician</span></a>
+      <a class="stat" href="#exp-4h"><b>$13K+</b><span>profit from raising and selling livestock through 4-H</span></a>
+      <a class="stat" href="#lead-track"><b>200</b><span>athletes on the track team I captained to a top-5 state finish</span></a>
+      <a class="stat" href="#lead-track"><b>2×</b><span>state champion in track and field</span></a>
+      <a class="stat" href="#proj-ffa"><b>Top 50</b><span>of about 500 students in state FFA Food Science</span></a>
+    </div>
+  </section>
+
+  <section id="experience" class="section">
+    <div class="section-head">
+      <div class="label">Experience</div>
+      <button class="toggle-all" type="button" data-for="experience">Expand all</button>
+    </div>
+    <div class="entries">
+      <details class="entry" id="exp-window">
+        <summary>
+          <span class="entry-main"><span class="entry-title">Window Repair Technician</span><span class="entry-sub">Residential and apartment window repair</span></span>
+          <span class="entry-meta">1.5 years</span>
+        </summary>
+        <div class="entry-body">
+          <ul>
+            <li>Completed about <strong>75 repair jobs a week</strong> with one partner: full window repairs, seal replacements and cracked glass.</li>
+            <li>Delivered hardware and kept apartment complexes stocked with the right parts, so their own maintenance staff could fix problems quickly without calling us.</li>
+            <li>Diagnosed each problem methodically on site and explained the fix directly to the customer.</li>
+          </ul>
+          <p class="takeaway"><span>What it taught me</span>Running a high volume of jobs while managing parts logistics, which is the kind of operational problem I want to solve with data.</p>
+        </div>
+      </details>
+
+      <details class="entry" id="exp-hvac">
+        <summary>
+          <span class="entry-main"><span class="entry-title">HVAC Intern</span><span class="entry-sub">Heating and cooling installation and repair</span></span>
+          <span class="entry-meta">Summer</span>
+        </summary>
+        <div class="entry-body">
+          <ul>
+            <li>Installed heat pumps and air conditioners, including running the copper refrigerant lines to each system.</li>
+            <li>Did full system repairs on furnaces, coils and outdoor units.</li>
+            <li>Removed old systems and tested each new system to make sure it ran properly in the home.</li>
+          </ul>
+          <p class="takeaway"><span>What it taught me</span>How whole systems fit together, and how one failing part affects everything else.</p>
+        </div>
+      </details>
+
+      <details class="entry" id="exp-footlocker">
+        <summary>
+          <span class="entry-main"><span class="entry-title">Sales Associate</span><span class="entry-sub">Foot Locker</span></span>
+          <span class="entry-meta">1 year</span>
+        </summary>
+        <div class="entry-body">
+          <ul>
+            <li>Helped customers find the right products in a fast-paced retail store.</li>
+            <li>Worked during high school while competing in sports year-round.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="entry" id="exp-4h">
+        <summary>
+          <span class="entry-main"><span class="entry-title">Livestock Producer &amp; Egg Business Lead</span><span class="entry-sub">4-H</span></span>
+          <span class="entry-meta">6 years · 3rd–9th grade</span>
+        </summary>
+        <div class="entry-body">
+          <ul>
+            <li>Raised and sold <strong>4 cattle, 4 pigs and 45 to 60 chickens</strong>, generating more than <strong>$13,000 in profit</strong> (about $2,000 to $3,000 per cow and $1,200 per pig).</li>
+            <li>Led a community egg business with my younger brother. I handled the networking and marketing, called customers to take orders, and we cleaned and delivered the eggs, about <strong>$400 in sales</strong> in one year.</li>
+            <li>Reserve Grand Champion for cattle twice; Grand Champion and Reserve Grand Champion with pens of chickens.</li>
+          </ul>
+          <p class="takeaway"><span>What it taught me</span>Responsibility every single day, and how to run something like a small business from start to sale.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="leadership" class="section">
+    <div class="section-head">
+      <div class="label">Athletics &amp; Leadership</div>
+      <button class="toggle-all" type="button" data-for="leadership">Expand all</button>
+    </div>
+    <div class="entries">
+      <details class="entry" id="lead-track" open>
+        <summary>
+          <span class="entry-main"><span class="entry-title">Track &amp; Field · Team Captain</span><span class="entry-sub">High school captain; now NCAA Division II at UCCS</span></span>
+          <span class="entry-meta">Kindergarten–present</span>
+        </summary>
+        <div class="entry-body">
+          <figure class="entry-photo"><img src="track-medals.jpg" width="1200" height="800" loading="lazy" alt="Bryson in a red track uniform with medals around his neck and hanging from both arms"></figure>
+          <ul>
+            <li>Captain my senior year of a team of about <strong>200 athletes</strong> that placed <strong>top 5 in the state</strong>.</li>
+            <li>Ran warm-ups and mentored younger athletes so they knew what they were doing.</li>
+            <li>Organized and led optional practices for about <strong>30 athletes</strong> on my own, with no coaches present.</li>
+            <li><strong>Two-time State Champion</strong>, three-time First Team All-State and All-State Honorable Mention.</li>
+          </ul>
+          <div class="prs" aria-label="Personal records">
+            <div><span>100m</span><b>10.68</b></div>
+            <div><span>200m</span><b>21.51</b></div>
+            <div><span>Long jump</span><b>23′ 7″</b></div>
+            <div><span>Triple jump</span><b>48′ 0″</b></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="entry" id="lead-sports">
+        <summary>
+          <span class="entry-main"><span class="entry-title">Four-Sport Athlete</span><span class="entry-sub">Football, basketball and baseball</span></span>
+          <span class="entry-meta">Kindergarten–11th grade</span>
+        </summary>
+        <div class="entry-body">
+          <ul>
+            <li><strong>Football:</strong> played 5th through 11th grade; varsity 9th through 11th grade.</li>
+            <li><strong>Basketball:</strong> played 2nd through 11th grade; varsity for a season. All-Conference Honorable Mention and All-Conference Second Team Defense as a freshman.</li>
+            <li><strong>Baseball:</strong> played kindergarten through 9th grade; All-Star team 4 years in a row.</li>
+          </ul>
+          <p class="takeaway"><span>What it taught me</span>How to work with a team, and how to organize my time around school, sports and a job.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="section-head">
+      <div class="label">Projects &amp; Activities</div>
+      <button class="toggle-all" type="button" data-for="projects">Expand all</button>
+    </div>
+    <div class="entries">
+      <details class="entry" id="proj-rocketry">
+        <summary>
+          <span class="entry-main"><span class="entry-title">Model Rocketry</span><span class="entry-sub">4-H · designed and built with my grandfather</span></span>
+          <span class="entry-meta">1 year</span>
+        </summary>
+        <div class="entry-body">
+          <ul>
+            <li>Designed and built <strong>3 rockets</strong>. I created most of the designs and my grandfather helped refine the ideas and source materials.</li>
+            <li>Ran <strong>3 test flights per rocket</strong>, each with a different engine, to find whether the thrust was too much or not enough for the design.</li>
+            <li>Adjusted the designs between tests to improve durability and altitude. Best flight reached about <strong>900 feet</strong>.</li>
+          </ul>
+          <p class="takeaway"><span>What it taught me</span>Test, measure, adjust and test again: the same loop engineers use.</p>
+        </div>
+      </details>
+
+      <details class="entry" id="proj-ffa">
+        <summary>
+          <span class="entry-main"><span class="entry-title">FFA Food Science</span><span class="entry-sub">State Leadership Development Event</span></span>
+          <span class="entry-meta">1 year</span>
+        </summary>
+        <div class="entry-body">
+          <ul>
+            <li>Placed in the <strong>top 50 of about 500 students</strong> in the state.</li>
+            <li>Tested and analyzed foods to judge quality, took a written exam on identifying food characteristics, and completed a team analysis task.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="entry" id="proj-band">
+        <summary>
+          <span class="entry-main"><span class="entry-title">Wind Ensemble</span><span class="entry-sub">Percussion</span></span>
+          <span class="entry-meta">7 years</span>
+        </summary>
+        <div class="entry-body">
+          <ul>
+            <li>Played percussion for seven years alongside sports and work.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="skills" class="section">
+    <div class="label">Skills</div>
+    <p class="hint">Tap a skill to see where I used it.</p>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <h3>Leadership &amp; teamwork</h3>
+        <div class="chips">
+          <a class="chip" href="#lead-track">Leadership</a>
+          <a class="chip" href="#lead-track">Mentoring</a>
+          <a class="chip" href="#lead-sports">Teamwork</a>
+          <a class="chip" href="#lead-sports">Time management</a>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Technical &amp; problem solving</h3>
+        <div class="chips">
+          <a class="chip" href="#exp-window">Troubleshooting</a>
+          <a class="chip" href="#exp-hvac">HVAC installation</a>
+          <a class="chip" href="#exp-hvac">Systems thinking</a>
+          <a class="chip" href="#proj-rocketry">Testing &amp; iteration</a>
+          <a class="chip" href="#proj-ffa">Quality analysis</a>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Business &amp; operations</h3>
+        <div class="chips">
+          <a class="chip" href="#exp-window">Parts &amp; inventory logistics</a>
+          <a class="chip" href="#exp-4h">Small business operations</a>
+          <a class="chip" href="#exp-4h">Sales &amp; marketing</a>
+          <a class="chip" href="#exp-footlocker">Customer service</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bottom" id="contact">
     <div class="card">
       <div class="qr" role="img" aria-label="QR code that saves Bryson States's contact card"><svg viewBox="0 0 61 61" shape-rendering="crispEdges" aria-hidden="true"><path fill="#101317" d="M0 0h7v1h-7zM8 0h1v1h-1zM12 0h1v1h-1zM17 0h2v1h-2zM20 0h1v1h-1zM23 0h1v1h-1zM28 0h2v1h-2zM31 0h1v1h-1zM35 0h2v1h-2zM42 0h2v1h-2zM48 0h2v1h-2zM51 0h2v1h-2zM54 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM11 1h1v1h-1zM13 1h1v1h-1zM20 1h1v1h-1zM22 1h5v1h-5zM28 1h3v1h-3zM32 1h1v1h-1zM35 1h1v1h-1zM37 1h1v1h-1zM40 1h1v1h-1zM42 1h1v1h-1zM44 1h1v1h-1zM48 1h1v1h-1zM51 1h2v1h-2zM54 1h1v1h-1zM60 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM10 2h1v1h-1zM12 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM21 2h3v1h-3zM25 2h3v1h-3zM33 2h1v1h-1zM36 2h2v1h-2zM39 2h1v1h-1zM42 2h3v1h-3zM48 2h5v1h-5zM54 2h1v1h-1zM56 2h3v1h-3zM60 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h4v1h-4zM16 3h2v1h-2zM19 3h2v1h-2zM22 3h1v1h-1zM25 3h1v1h-1zM29 3h1v1h-1zM33 3h2v1h-2zM36 3h3v1h-3zM43 3h1v1h-1zM47 3h2v1h-2zM50 3h1v1h-1zM52 3h1v1h-1zM54 3h1v1h-1zM56 3h3v1h-3zM60 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM9 4h3v1h-3zM13 4h6v1h-6zM20 4h2v1h-2zM23 4h1v1h-1zM26 4h9v1h-9zM36 4h5v1h-5zM43 4h3v1h-3zM49 4h3v1h-3zM54 4h1v1h-1zM56 4h3v1h-3zM60 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM11 5h2v1h-2zM14 5h1v1h-1zM17 5h1v1h-1zM22 5h3v1h-3zM28 5h1v1h-1zM32 5h1v1h-1zM34 5h1v1h-1zM37 5h1v1h-1zM40 5h1v1h-1zM43 5h2v1h-2zM50 5h1v1h-1zM54 5h1v1h-1zM60 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM28 6h1v1h-1zM30 6h1v1h-1zM32 6h1v1h-1zM34 6h1v1h-1zM36 6h1v1h-1zM38 6h1v1h-1zM40 6h1v1h-1zM42 6h1v1h-1zM44 6h1v1h-1zM46 6h1v1h-1zM48 6h1v1h-1zM50 6h1v1h-1zM52 6h1v1h-1zM54 6h7v1h-7zM8 7h1v1h-1zM10 7h3v1h-3zM17 7h3v1h-3zM21 7h4v1h-4zM26 7h1v1h-1zM28 7h1v1h-1zM32 7h1v1h-1zM35 7h4v1h-4zM40 7h1v1h-1zM42 7h1v1h-1zM47 7h2v1h-2zM50 7h1v1h-1zM0 8h1v1h-1zM2 8h2v1h-2zM5 8h3v1h-3zM9 8h3v1h-3zM14 8h2v1h-2zM17 8h1v1h-1zM20 8h1v1h-1zM22 8h2v1h-2zM27 8h6v1h-6zM35 8h1v1h-1zM37 8h1v1h-1zM40 8h1v1h-1zM42 8h1v1h-1zM45 8h1v1h-1zM47 8h1v1h-1zM49 8h4v1h-4zM54 8h1v1h-1zM57 8h1v1h-1zM59 8h2v1h-2zM2 9h1v1h-1zM5 9h1v1h-1zM8 9h1v1h-1zM11 9h2v1h-2zM14 9h1v1h-1zM17 9h2v1h-2zM20 9h5v1h-5zM26 9h1v1h-1zM28 9h2v1h-2zM31 9h1v1h-1zM37 9h1v1h-1zM39 9h2v1h-2zM42 9h3v1h-3zM47 9h3v1h-3zM53 9h2v1h-2zM0 10h3v1h-3zM4 10h3v1h-3zM8 10h2v1h-2zM12 10h1v1h-1zM15 10h1v1h-1zM18 10h1v1h-1zM21 10h3v1h-3zM25 10h1v1h-1zM28 10h1v1h-1zM30 10h6v1h-6zM39 10h1v1h-1zM42 10h1v1h-1zM44 10h1v1h-1zM50 10h2v1h-2zM53 10h5v1h-5zM1 11h1v1h-1zM3 11h2v1h-2zM7 11h1v1h-1zM10 11h2v1h-2zM16 11h4v1h-4zM21 11h2v1h-2zM25 11h5v1h-5zM34 11h1v1h-1zM37 11h1v1h-1zM39 11h1v1h-1zM42 11h4v1h-4zM47 11h1v1h-1zM49 11h2v1h-2zM54 11h1v1h-1zM56 11h3v1h-3zM60 11h1v1h-1zM1 12h1v1h-1zM5 12h2v1h-2zM8 12h1v1h-1zM10 12h1v1h-1zM14 12h1v1h-1zM16 12h1v1h-1zM19 12h3v1h-3zM25 12h1v1h-1zM32 12h1v1h-1zM35 12h2v1h-2zM41 12h2v1h-2zM45 12h4v1h-4zM50 12h2v1h-2zM53 12h2v1h-2zM57 12h3v1h-3zM0 13h5v1h-5zM9 13h1v1h-1zM11 13h1v1h-1zM17 13h2v1h-2zM22 13h1v1h-1zM24 13h1v1h-1zM28 13h1v1h-1zM30 13h1v1h-1zM33 13h1v1h-1zM36 13h5v1h-5zM43 13h1v1h-1zM45 13h1v1h-1zM47 13h5v1h-5zM59 13h2v1h-2zM0 14h2v1h-2zM5 14h3v1h-3zM10 14h4v1h-4zM15 14h5v1h-5zM21 14h3v1h-3zM30 14h1v1h-1zM36 14h2v1h-2zM40 14h4v1h-4zM49 14h1v1h-1zM53 14h1v1h-1zM56 14h1v1h-1zM59 14h1v1h-1zM0 15h1v1h-1zM3 15h1v1h-1zM7 15h1v1h-1zM12 15h2v1h-2zM17 15h1v1h-1zM21 15h4v1h-4zM29 15h3v1h-3zM33 15h1v1h-1zM35 15h2v1h-2zM38 15h2v1h-2zM42 15h1v1h-1zM46 15h1v1h-1zM49 15h1v1h-1zM51 15h4v1h-4zM56 15h1v1h-1zM59 15h1v1h-1zM0 16h7v1h-7zM9 16h3v1h-3zM14 16h2v1h-2zM18 16h4v1h-4zM25 16h3v1h-3zM29 16h2v1h-2zM35 16h1v1h-1zM37 16h3v1h-3zM42 16h1v1h-1zM44 16h1v1h-1zM46 16h1v1h-1zM50 16h1v1h-1zM55 16h5v1h-5zM2 17h1v1h-1zM5 17h1v1h-1zM7 17h1v1h-1zM9 17h1v1h-1zM12 17h1v1h-1zM14 17h1v1h-1zM17 17h2v1h-2zM21 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM28 17h1v1h-1zM31 17h5v1h-5zM41 17h1v1h-1zM45 17h3v1h-3zM52 17h2v1h-2zM55 17h1v1h-1zM58 17h1v1h-1zM0 18h1v1h-1zM2 18h2v1h-2zM6 18h1v1h-1zM8 18h2v1h-2zM12 18h1v1h-1zM14 18h2v1h-2zM22 18h2v1h-2zM27 18h1v1h-1zM30 18h2v1h-2zM33 18h1v1h-1zM36 18h3v1h-3zM41 18h1v1h-1zM43 18h4v1h-4zM48 18h1v1h-1zM50 18h1v1h-1zM52 18h1v1h-1zM54 18h2v1h-2zM57 18h4v1h-4zM5 19h1v1h-1zM7 19h5v1h-5zM16 19h1v1h-1zM18 19h2v1h-2zM21 19h1v1h-1zM24 19h4v1h-4zM31 19h1v1h-1zM34 19h2v1h-2zM37 19h7v1h-7zM45 19h3v1h-3zM50 19h1v1h-1zM56 19h2v1h-2zM6 20h2v1h-2zM9 20h1v1h-1zM13 20h2v1h-2zM16 20h1v1h-1zM18 20h3v1h-3zM23 20h1v1h-1zM25 20h1v1h-1zM31 20h1v1h-1zM33 20h3v1h-3zM37 20h1v1h-1zM40 20h2v1h-2zM43 20h1v1h-1zM46 20h2v1h-2zM49 20h1v1h-1zM51 20h3v1h-3zM58 20h1v1h-1zM60 20h1v1h-1zM0 21h1v1h-1zM5 21h1v1h-1zM9 21h1v1h-1zM11 21h2v1h-2zM17 21h3v1h-3zM21 21h1v1h-1zM23 21h1v1h-1zM25 21h1v1h-1zM27 21h3v1h-3zM32 21h1v1h-1zM35 21h2v1h-2zM39 21h2v1h-2zM42 21h4v1h-4zM47 21h3v1h-3zM53 21h2v1h-2zM58 21h1v1h-1zM1 22h1v1h-1zM4 22h1v1h-1zM6 22h2v1h-2zM9 22h2v1h-2zM13 22h2v1h-2zM16 22h1v1h-1zM19 22h1v1h-1zM21 22h1v1h-1zM23 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM29 22h4v1h-4zM36 22h2v1h-2zM42 22h5v1h-5zM50 22h2v1h-2zM54 22h5v1h-5zM0 23h1v1h-1zM3 23h2v1h-2zM11 23h2v1h-2zM16 23h3v1h-3zM20 23h1v1h-1zM22 23h5v1h-5zM28 23h3v1h-3zM32 23h1v1h-1zM34 23h4v1h-4zM39 23h3v1h-3zM43 23h3v1h-3zM49 23h2v1h-2zM52 23h1v1h-1zM54 23h2v1h-2zM57 23h2v1h-2zM60 23h1v1h-1zM0 24h4v1h-4zM6 24h1v1h-1zM8 24h2v1h-2zM12 24h1v1h-1zM18 24h1v1h-1zM21 24h1v1h-1zM23 24h2v1h-2zM30 24h3v1h-3zM35 24h3v1h-3zM41 24h3v1h-3zM45 24h1v1h-1zM47 24h2v1h-2zM52 24h1v1h-1zM55 24h1v1h-1zM57 24h2v1h-2zM0 25h3v1h-3zM4 25h1v1h-1zM11 25h1v1h-1zM13 25h3v1h-3zM17 25h4v1h-4zM23 25h1v1h-1zM25 25h1v1h-1zM29 25h2v1h-2zM32 25h1v1h-1zM37 25h2v1h-2zM44 25h1v1h-1zM47 25h1v1h-1zM49 25h2v1h-2zM56 25h2v1h-2zM59 25h2v1h-2zM2 26h5v1h-5zM8 26h2v1h-2zM12 26h1v1h-1zM14 26h2v1h-2zM17 26h1v1h-1zM21 26h3v1h-3zM26 26h1v1h-1zM28 26h3v1h-3zM32 26h5v1h-5zM40 26h1v1h-1zM49 26h1v1h-1zM51 26h1v1h-1zM53 26h1v1h-1zM57 26h1v1h-1zM59 26h1v1h-1zM1 27h5v1h-5zM9 27h1v1h-1zM12 27h1v1h-1zM14 27h2v1h-2zM17 27h1v1h-1zM20 27h1v1h-1zM24 27h3v1h-3zM30 27h1v1h-1zM32 27h2v1h-2zM35 27h1v1h-1zM39 27h2v1h-2zM42 27h8v1h-8zM54 27h3v1h-3zM60 27h1v1h-1zM3 28h7v1h-7zM12 28h1v1h-1zM15 28h4v1h-4zM20 28h1v1h-1zM26 28h7v1h-7zM34 28h1v1h-1zM37 28h3v1h-3zM41 28h1v1h-1zM43 28h3v1h-3zM50 28h9v1h-9zM2 29h3v1h-3zM8 29h2v1h-2zM12 29h3v1h-3zM23 29h1v1h-1zM25 29h2v1h-2zM28 29h1v1h-1zM32 29h5v1h-5zM39 29h1v1h-1zM43 29h4v1h-4zM48 29h2v1h-2zM52 29h1v1h-1zM56 29h2v1h-2zM60 29h1v1h-1zM0 30h1v1h-1zM4 30h1v1h-1zM6 30h1v1h-1zM8 30h2v1h-2zM14 30h1v1h-1zM16 30h2v1h-2zM19 30h3v1h-3zM23 30h3v1h-3zM27 30h2v1h-2zM30 30h1v1h-1zM32 30h1v1h-1zM34 30h2v1h-2zM37 30h2v1h-2zM40 30h1v1h-1zM42 30h1v1h-1zM45 30h1v1h-1zM52 30h1v1h-1zM54 30h1v1h-1zM56 30h5v1h-5zM2 31h3v1h-3zM8 31h1v1h-1zM13 31h2v1h-2zM16 31h1v1h-1zM18 31h3v1h-3zM22 31h1v1h-1zM25 31h1v1h-1zM27 31h2v1h-2zM32 31h2v1h-2zM36 31h1v1h-1zM38 31h2v1h-2zM43 31h1v1h-1zM46 31h1v1h-1zM49 31h1v1h-1zM52 31h1v1h-1zM56 31h2v1h-2zM0 32h1v1h-1zM2 32h11v1h-11zM15 32h2v1h-2zM19 32h2v1h-2zM22 32h4v1h-4zM28 32h5v1h-5zM34 32h1v1h-1zM38 32h3v1h-3zM43 32h1v1h-1zM45 32h3v1h-3zM50 32h1v1h-1zM52 32h6v1h-6zM60 32h1v1h-1zM0 33h1v1h-1zM3 33h2v1h-2zM7 33h1v1h-1zM11 33h1v1h-1zM14 33h5v1h-5zM23 33h2v1h-2zM26 33h1v1h-1zM28 33h2v1h-2zM31 33h2v1h-2zM35 33h1v1h-1zM37 33h1v1h-1zM39 33h4v1h-4zM44 33h1v1h-1zM47 33h3v1h-3zM51 33h5v1h-5zM57 33h1v1h-1zM59 33h1v1h-1zM0 34h1v1h-1zM3 34h1v1h-1zM6 34h1v1h-1zM14 34h2v1h-2zM17 34h1v1h-1zM21 34h1v1h-1zM23 34h1v1h-1zM25 34h2v1h-2zM30 34h3v1h-3zM34 34h2v1h-2zM40 34h1v1h-1zM42 34h1v1h-1zM45 34h2v1h-2zM49 34h2v1h-2zM52 34h1v1h-1zM55 34h1v1h-1zM57 34h2v1h-2zM0 35h1v1h-1zM3 35h1v1h-1zM7 35h3v1h-3zM13 35h1v1h-1zM16 35h2v1h-2zM19 35h3v1h-3zM23 35h1v1h-1zM27 35h2v1h-2zM33 35h2v1h-2zM37 35h1v1h-1zM39 35h2v1h-2zM43 35h2v1h-2zM46 35h1v1h-1zM48 35h2v1h-2zM51 35h5v1h-5zM57 35h3v1h-3zM1 36h2v1h-2zM4 36h4v1h-4zM9 36h1v1h-1zM12 36h2v1h-2zM15 36h1v1h-1zM19 36h2v1h-2zM22 36h2v1h-2zM25 36h1v1h-1zM27 36h1v1h-1zM29 36h2v1h-2zM35 36h1v1h-1zM37 36h2v1h-2zM41 36h1v1h-1zM43 36h1v1h-1zM47 36h3v1h-3zM51 36h4v1h-4zM58 36h1v1h-1zM1 37h4v1h-4zM7 37h2v1h-2zM12 37h1v1h-1zM14 37h2v1h-2zM19 37h1v1h-1zM21 37h1v1h-1zM25 37h9v1h-9zM35 37h4v1h-4zM40 37h2v1h-2zM43 37h1v1h-1zM45 37h1v1h-1zM49 37h2v1h-2zM52 37h2v1h-2zM55 37h3v1h-3zM59 37h2v1h-2zM0 38h2v1h-2zM3 38h1v1h-1zM6 38h2v1h-2zM9 38h4v1h-4zM14 38h2v1h-2zM18 38h1v1h-1zM20 38h3v1h-3zM26 38h1v1h-1zM28 38h2v1h-2zM31 38h2v1h-2zM35 38h2v1h-2zM38 38h1v1h-1zM42 38h1v1h-1zM44 38h1v1h-1zM47 38h2v1h-2zM50 38h1v1h-1zM53 38h1v1h-1zM57 38h4v1h-4zM4 39h2v1h-2zM7 39h6v1h-6zM14 39h1v1h-1zM16 39h2v1h-2zM24 39h1v1h-1zM26 39h1v1h-1zM29 39h3v1h-3zM34 39h1v1h-1zM36 39h1v1h-1zM40 39h1v1h-1zM42 39h5v1h-5zM48 39h2v1h-2zM52 39h1v1h-1zM54 39h1v1h-1zM56 39h1v1h-1zM60 39h1v1h-1zM1 40h2v1h-2zM5 40h3v1h-3zM9 40h1v1h-1zM12 40h1v1h-1zM17 40h2v1h-2zM23 40h1v1h-1zM25 40h1v1h-1zM31 40h1v1h-1zM38 40h1v1h-1zM42 40h1v1h-1zM44 40h1v1h-1zM46 40h1v1h-1zM49 40h2v1h-2zM52 40h1v1h-1zM54 40h2v1h-2zM59 40h1v1h-1zM0 41h3v1h-3zM4 41h1v1h-1zM8 41h2v1h-2zM13 41h1v1h-1zM15 41h1v1h-1zM18 41h1v1h-1zM21 41h5v1h-5zM28 41h1v1h-1zM30 41h1v1h-1zM34 41h2v1h-2zM37 41h1v1h-1zM46 41h4v1h-4zM57 41h1v1h-1zM59 41h2v1h-2zM0 42h2v1h-2zM3 42h4v1h-4zM9 42h1v1h-1zM11 42h1v1h-1zM13 42h1v1h-1zM16 42h1v1h-1zM18 42h4v1h-4zM26 42h5v1h-5zM34 42h3v1h-3zM39 42h1v1h-1zM41 42h1v1h-1zM45 42h2v1h-2zM48 42h4v1h-4zM54 42h2v1h-2zM57 42h2v1h-2zM60 42h1v1h-1zM5 43h1v1h-1zM7 43h1v1h-1zM9 43h2v1h-2zM12 43h2v1h-2zM15 43h1v1h-1zM20 43h2v1h-2zM24 43h1v1h-1zM27 43h1v1h-1zM31 43h6v1h-6zM38 43h1v1h-1zM40 43h1v1h-1zM42 43h2v1h-2zM45 43h4v1h-4zM50 43h1v1h-1zM52 43h1v1h-1zM54 43h1v1h-1zM56 43h1v1h-1zM59 43h1v1h-1zM0 44h1v1h-1zM2 44h3v1h-3zM6 44h2v1h-2zM9 44h1v1h-1zM12 44h2v1h-2zM19 44h1v1h-1zM27 44h2v1h-2zM31 44h1v1h-1zM35 44h1v1h-1zM37 44h2v1h-2zM40 44h1v1h-1zM42 44h1v1h-1zM49 44h1v1h-1zM59 44h1v1h-1zM0 45h1v1h-1zM3 45h1v1h-1zM5 45h1v1h-1zM7 45h2v1h-2zM11 45h3v1h-3zM15 45h1v1h-1zM17 45h1v1h-1zM19 45h1v1h-1zM22 45h3v1h-3zM27 45h3v1h-3zM34 45h4v1h-4zM39 45h5v1h-5zM47 45h3v1h-3zM53 45h1v1h-1zM55 45h1v1h-1zM57 45h1v1h-1zM0 46h1v1h-1zM2 46h3v1h-3zM6 46h1v1h-1zM8 46h1v1h-1zM10 46h1v1h-1zM13 46h1v1h-1zM19 46h1v1h-1zM21 46h1v1h-1zM23 46h2v1h-2zM26 46h2v1h-2zM29 46h1v1h-1zM38 46h2v1h-2zM41 46h1v1h-1zM46 46h2v1h-2zM52 46h2v1h-2zM57 46h2v1h-2zM0 47h2v1h-2zM4 47h1v1h-1zM7 47h3v1h-3zM11 47h1v1h-1zM14 47h1v1h-1zM16 47h2v1h-2zM19 47h1v1h-1zM21 47h5v1h-5zM27 47h1v1h-1zM29 47h1v1h-1zM36 47h1v1h-1zM42 47h1v1h-1zM44 47h2v1h-2zM47 47h10v1h-10zM58 47h2v1h-2zM3 48h1v1h-1zM6 48h4v1h-4zM11 48h2v1h-2zM15 48h2v1h-2zM18 48h6v1h-6zM25 48h1v1h-1zM30 48h3v1h-3zM35 48h2v1h-2zM43 48h1v1h-1zM46 48h1v1h-1zM48 48h1v1h-1zM50 48h2v1h-2zM53 48h3v1h-3zM57 48h1v1h-1zM59 48h2v1h-2zM0 49h1v1h-1zM2 49h2v1h-2zM5 49h1v1h-1zM9 49h2v1h-2zM12 49h2v1h-2zM15 49h1v1h-1zM18 49h1v1h-1zM22 49h1v1h-1zM25 49h2v1h-2zM28 49h1v1h-1zM32 49h2v1h-2zM35 49h1v1h-1zM37 49h2v1h-2zM43 49h3v1h-3zM48 49h3v1h-3zM53 49h5v1h-5zM59 49h2v1h-2zM2 50h5v1h-5zM8 50h2v1h-2zM11 50h2v1h-2zM14 50h12v1h-12zM30 50h1v1h-1zM33 50h1v1h-1zM35 50h4v1h-4zM40 50h1v1h-1zM46 50h2v1h-2zM53 50h1v1h-1zM55 50h2v1h-2zM58 50h2v1h-2zM0 51h3v1h-3zM4 51h1v1h-1zM13 51h2v1h-2zM16 51h1v1h-1zM18 51h2v1h-2zM22 51h1v1h-1zM24 51h1v1h-1zM27 51h3v1h-3zM34 51h2v1h-2zM37 51h2v1h-2zM40 51h1v1h-1zM43 51h2v1h-2zM48 51h1v1h-1zM51 51h2v1h-2zM54 51h1v1h-1zM56 51h2v1h-2zM0 52h4v1h-4zM6 52h1v1h-1zM8 52h3v1h-3zM12 52h1v1h-1zM15 52h1v1h-1zM17 52h2v1h-2zM20 52h2v1h-2zM24 52h11v1h-11zM37 52h1v1h-1zM44 52h1v1h-1zM46 52h1v1h-1zM52 52h5v1h-5zM59 52h1v1h-1zM8 53h2v1h-2zM12 53h2v1h-2zM15 53h1v1h-1zM18 53h2v1h-2zM21 53h3v1h-3zM27 53h2v1h-2zM32 53h1v1h-1zM34 53h2v1h-2zM43 53h4v1h-4zM48 53h1v1h-1zM51 53h2v1h-2zM56 53h5v1h-5zM0 54h7v1h-7zM8 54h1v1h-1zM10 54h3v1h-3zM14 54h2v1h-2zM18 54h3v1h-3zM22 54h2v1h-2zM28 54h1v1h-1zM30 54h1v1h-1zM32 54h5v1h-5zM38 54h1v1h-1zM40 54h1v1h-1zM43 54h6v1h-6zM52 54h1v1h-1zM54 54h1v1h-1zM56 54h2v1h-2zM59 54h2v1h-2zM0 55h1v1h-1zM6 55h1v1h-1zM8 55h1v1h-1zM11 55h3v1h-3zM16 55h1v1h-1zM18 55h2v1h-2zM21 55h1v1h-1zM23 55h1v1h-1zM27 55h2v1h-2zM32 55h4v1h-4zM37 55h5v1h-5zM45 55h6v1h-6zM52 55h1v1h-1zM56 55h2v1h-2zM59 55h2v1h-2zM0 56h1v1h-1zM2 56h3v1h-3zM6 56h1v1h-1zM9 56h2v1h-2zM17 56h2v1h-2zM21 56h4v1h-4zM28 56h5v1h-5zM37 56h1v1h-1zM40 56h1v1h-1zM46 56h2v1h-2zM49 56h1v1h-1zM51 56h6v1h-6zM0 57h1v1h-1zM2 57h3v1h-3zM6 57h1v1h-1zM8 57h1v1h-1zM13 57h1v1h-1zM16 57h1v1h-1zM18 57h1v1h-1zM20 57h1v1h-1zM23 57h2v1h-2zM30 57h2v1h-2zM36 57h2v1h-2zM39 57h1v1h-1zM42 57h3v1h-3zM47 57h1v1h-1zM49 57h1v1h-1zM51 57h1v1h-1zM53 57h3v1h-3zM60 57h1v1h-1zM0 58h1v1h-1zM2 58h3v1h-3zM6 58h1v1h-1zM8 58h1v1h-1zM11 58h1v1h-1zM13 58h1v1h-1zM18 58h4v1h-4zM23 58h2v1h-2zM26 58h2v1h-2zM30 58h1v1h-1zM32 58h1v1h-1zM34 58h1v1h-1zM39 58h1v1h-1zM41 58h2v1h-2zM44 58h3v1h-3zM51 58h1v1h-1zM53 58h1v1h-1zM55 58h5v1h-5zM0 59h1v1h-1zM6 59h1v1h-1zM9 59h1v1h-1zM11 59h4v1h-4zM18 59h1v1h-1zM20 59h3v1h-3zM27 59h1v1h-1zM29 59h2v1h-2zM37 59h3v1h-3zM41 59h1v1h-1zM44 59h1v1h-1zM50 59h1v1h-1zM52 59h2v1h-2zM55 59h1v1h-1zM57 59h2v1h-2zM0 60h7v1h-7zM8 60h2v1h-2zM12 60h1v1h-1zM16 60h5v1h-5zM22 60h3v1h-3zM29 60h1v1h-1zM31 60h1v1h-1zM34 60h3v1h-3zM38 60h2v1h-2zM42 60h1v1h-1zM46 60h4v1h-4zM52 60h1v1h-1zM57 60h1v1h-1zM59 60h2v1h-2z"/></svg></div>
       <div class="card-text">
@@ -338,6 +688,43 @@
       const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
     });
   });
+  // Open (and briefly highlight) the entry a link points to, e.g. from a skill chip or highlight.
+  function openFromHash() {
+    const el = location.hash && document.getElementById(location.hash.slice(1));
+    if (el && el.tagName === "DETAILS") {
+      el.open = true;
+      el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash");
+    }
+  }
+  window.addEventListener("hashchange", openFromHash);
+  openFromHash();
+
+  // "Expand all" / "Collapse all" per section.
+  document.querySelectorAll(".toggle-all").forEach((btn) => {
+    const items = () => document.querySelectorAll(`#${btn.dataset.for} details`);
+    const sync = () => { btn.textContent = [...items()].every((d) => d.open) ? "Collapse all" : "Expand all"; };
+    btn.addEventListener("click", () => {
+      const open = ![...items()].every((d) => d.open);
+      items().forEach((d) => (d.open = open));
+      sync();
+    });
+    items().forEach((d) => d.addEventListener("toggle", sync));
+    sync();
+  });
+
+  // Highlight the current section in the sticky menu.
+  const links = [...document.querySelectorAll(".toc a")];
+  const targets = links.map((a) => document.querySelector(a.getAttribute("href")));
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      links.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+      const active = links.find((a) => a.classList.contains("active"));
+      if (active) active.parentElement.scrollTo({ left: active.offsetLeft - 16, behavior: "smooth" });
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  targets.forEach((t) => t && spy.observe(t));
+
 </script>
 </body>
 </html>
